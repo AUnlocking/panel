@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+   <link rel="stylesheet" href="css/bootstrap.min.css">
+   <link rel="stylesheet" href="css/jquery-confirm.min.css">
+   <link rel="stylesheet" href="css/style.css">
+   <title>Geniush's License Manager</title>
+</head>
+
+<body>
+ 
+   <div class="container-fluid bg-dark text-white" id="all">
+      <h1>Logs</h1>
+      <div class="table-responsive">
+         <table class="table table-hover table-dark">
+            <?php
+            require_once 'config/db.php';
+            require_once 'php/PrintDB.php';
+
+            if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['query'])) {
+               $query = trim($_POST['query']);
+               print_db($link, 'SELECT id, ip as "IP", time as "Time", success as "Success", lickey as "License Key", hwid as "HWID", type as "Product" FROM logs WHERE id like "' . $query . '" or ip like "' . $query . '" or time like "' . $query . '" or success like "' . $query . '" or lickey like "' . $query . '" or hwid like "' . $query . '" or type like "' . $query . '" ORDER BY id');
+               mysqli_close($link);
+            } else {
+               print_db($link, 'SELECT id, ip as "IP", time as "Time", success as "Success", lickey as "License Key", hwid as "HWID", type as "Product" FROM logs ORDER BY id');
+               mysqli_close($link);
+            }
+            ?>
+         </table>
+      </div>
+      <nav class="navbar fixed-bottom navbar-expand navbar-dark bg-dark">
+         <a class="navbar-brand" href="#">Buttons</a>
+         <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+               <li class="nav-item active">
+                  <span class="nav-link" id="LogDelete">Delete Log</span>
+               </li>
+            </ul>
+            <form class="form-inline my-2 my-lg-0">
+               <input type="checkbox" class="css-checkbox form-control mr-sm-2" id="checkAll">
+               <label for="checkAll" class="css-label my-2 my-sm-0">Check All</label>
+            </form>
+         </div>
+      </nav>
+      <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+      <div class="footer">
+         <div class="container">
+            <div class="row text-center">
+               <div class="col-lg-12 col-sm-12 col-xs-12">
+                  <div class="footer_menu">
+                     <ul>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">About</a></li>
+                        <li><a href="#">Service</a></li>
+                        <li><a href="#">Works</a></li>
+                        <li><a href="#">Contact</a></li>
+                     </ul>
+                  </div>
+                  <div class="footer_copyright">
+                     <p>© 2021 Sai. All Rights Reserved.</p>
+                  </div>
+                  <div class="footer_profile">
+                     <ul>
+                        <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                        <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                        <li><a href="#"><i class="fa fa-instagram"></i></a></li>
+                        <li><a href="#"><i class="fa fa-pinterest"></i></a></li>
+                     </ul>
+                  </div>
+               </div><!--- END COL -->
+            </div><!--- END ROW -->
+         </div><!--- END CONTAINER -->
+      </div>
+   </div>
+   <script src="js/jquery-3.3.1.min.js "></script>
+   <script src="js/popper.min.js "></script>
+   <script src="js/bootstrap.min.js "></script>
+   <script src="js/jquery-confirm.min.js "></script>
+   <script src="js/buttons.js"></script>
+
+</body>
+
+</html>
